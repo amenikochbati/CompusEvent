@@ -15,6 +15,7 @@ public class Event implements Serializable {
     private int capacity;
     private boolean isFavorite;
     private boolean isParticipating;
+    private String registrationStatus; // "active" ou "cancelled" (historique des inscriptions)
 
     public Event() {
     }
@@ -127,5 +128,13 @@ public class Event implements Serializable {
 
     public void setParticipating(boolean participating) {
         isParticipating = participating;
+    }
+
+    public String getRegistrationStatus() {
+        return registrationStatus;
+    }
+
+    public void setRegistrationStatus(String registrationStatus) {
+        this.registrationStatus = registrationStatus;
     }
 }
