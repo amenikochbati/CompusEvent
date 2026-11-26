@@ -78,8 +78,14 @@ Depuis Android Studio : *Build > Generate App Bundle / Build APK*, ou en ligne d
 .\gradlew.bat testDebugUnitTest  # tests unitaires JVM
 ```
 
-APK généré : `app/build/outputs/apk/debug/app-debug.apk`.
+APK livrés dans [`releases/`](releases/) :
+- `CampusEvents-v1.0-release.apk` — version **signée** (v2/v3), vérifiée avec `apksigner` ;
+- `CampusEvents-v1.0-debug.apk` — version de debug installable.
+
 Installation sur téléphone : activer « Sources inconnues », copier l'APK, l'ouvrir et installer.
+Le keystore de démonstration `campusevents-release.jks` est conservé localement et **non versionné**
+(mot de passe de démo : `changeit`) : il sera nécessaire pour signer une future mise à jour avec le
+même certificat.
 
 ## Tests
 
