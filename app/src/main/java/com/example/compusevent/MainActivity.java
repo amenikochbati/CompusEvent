@@ -2,6 +2,8 @@ package com.example.compusevent;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,10 +13,12 @@ import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
 
+/** Accueil : navigation principale et événements à venir. */
 public class MainActivity extends AppCompatActivity implements EventAdapter.OnEventClickListener {
 
     private DatabaseHelper dbHelper;
     private RecyclerView rvUpcomingEvents;
+    private TextView tvEmptyUpcoming;
     private EventAdapter adapter;
 
     @Override
@@ -28,23 +32,13 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.OnEv
         MaterialButton btnMyEvents = findViewById(R.id.btn_my_events);
         MaterialButton btnAbout = findViewById(R.id.btn_about);
         rvUpcomingEvents = findViewById(R.id.rv_upcoming_events);
+        tvEmptyUpcoming = findViewById(R.id.tv_empty_upcoming);
 
         rvUpcomingEvents.setLayoutManager(new LinearLayoutManager(this));
 
-        btnExplore.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, EventsActivity.class);
-            startActivity(intent);
-        });
-
-        btnMyEvents.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, MyEventsActivity.class);
-            startActivity(intent);
-        });
-
-        btnAbout.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, AboutActivity.class);
-            startActivity(intent);
-        });
+        btnExplore.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, EventsActivity.class)));
+        btnMyEvents.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, MyEventsActivity.class)));
+        btnAbout.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, AboutActivity.class)));
     }
 
     @Override
@@ -55,6 +49,10 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.OnEv
 
     private void loadUpcomingEvents() {
         List<Event> upcomingEvents = dbHelper.getUpcomingEvents(5);
+        boolean isEmpty = upcomingEvents.isEmpty();
+        tvEmptyUpcoming.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
+        rvUpcomingEvents.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
+
         if (adapter == null) {
             adapter = new EventAdapter(this, upcomingEvents, this);
             rvUpcomingEvents.setAdapter(adapter);
@@ -72,6 +70,6 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.OnEv
 
     @Override
     public void onFavoriteToggle(Event event, boolean newFavoriteStatus) {
-        // Handled internally by DatabaseHelper in EventAdapter
+        // La base est mise à jour directement par l'adaptateur.
     }
 }

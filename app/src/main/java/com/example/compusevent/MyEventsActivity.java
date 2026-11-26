@@ -85,7 +85,8 @@ public class MyEventsActivity extends AppCompatActivity implements EventAdapter.
             events = dbHelper.getFavoriteEvents();
             tvEmptyMyEvents.setText(R.string.no_favorites);
         } else {
-            events = dbHelper.getParticipatedEvents();
+            // Historique complet : inscriptions confirmées ET annulées (T07).
+            events = dbHelper.getRegistrationHistory();
             tvEmptyMyEvents.setText(R.string.no_participations);
         }
 

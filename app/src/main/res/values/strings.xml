@@ -13,6 +13,7 @@
     <string name="btn_favorite">Favori</string>
     <string name="btn_back">Retour</string>
     <string name="btn_search">Rechercher</string>
+    <string name="btn_refresh">Rafraîchir</string>
 
     <!-- Headers & Labels -->
     <string name="title_upcoming_events">Événements à venir</string>
@@ -21,8 +22,12 @@
     <string name="title_participations">Mes Participations</string>
     <string name="title_my_events">Mes Événements et Favoris</string>
     <string name="title_about">À propos de CampusEvents</string>
-    <string name="search_hint">Rechercher par titre...</string>
+    <string name="search_hint">Titre, description ou lieu…</string>
     <string name="category_all">Toutes</string>
+    <string name="show_past_events">Afficher les événements passés</string>
+    <string name="label_status">Statut</string>
+    <string name="label_available_places">Places disponibles</string>
+    <string name="label_registration">Inscription</string>
 
     <!-- Categories -->
     <string name="cat_tech">Technologie</string>
@@ -37,9 +42,23 @@
     <string name="weather_loading">Chargement des données météo...</string>
     <string name="weather_error">Prévisions météo non disponibles ou problème de connexion.</string>
     <string name="weather_credit">Données fournies par l\'API Open-Meteo</string>
+    <string name="weather_not_available">Prévisions non encore disponibles pour cette date (au-delà de 16 jours).</string>
+
+    <!-- Registration feedback -->
+    <string name="register_success">Inscription confirmée !</string>
+    <string name="register_already">Vous êtes déjà inscrit à cet événement.</string>
+    <string name="register_full">Événement complet : aucune place restante.</string>
+    <string name="register_past">Événement terminé : inscription impossible.</string>
+    <string name="register_error">Impossible d\'enregistrer l\'inscription.</string>
+    <string name="cancel_success">Inscription annulée, place libérée.</string>
+    <string name="event_finished">Événement terminé</string>
+    <string name="event_full">Événement complet</string>
 
     <!-- Empty states -->
     <string name="no_events_found">Aucun événement trouvé.</string>
+    <string name="no_upcoming_events">Aucun événement à venir pour le moment.</string>
     <string name="no_favorites">Aucun événement dans vos favoris.</string>
     <string name="no_participations">Vous ne participez à aucun événement pour le moment.</string>
+    <string name="status_cancelled">Annulée</string>
+    <string name="status_active">Confirmée</string>
 </resources>

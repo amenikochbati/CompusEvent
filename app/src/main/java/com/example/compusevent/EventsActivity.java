@@ -14,9 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.checkbox.MaterialCheckBox;
 
 import java.util.List;
 
+/** Liste des événements avec recherche multicritère et filtres. */
 public class EventsActivity extends AppCompatActivity implements EventAdapter.OnEventClickListener {
 
     private DatabaseHelper dbHelper;
@@ -24,6 +26,7 @@ public class EventsActivity extends AppCompatActivity implements EventAdapter.On
     private TextView tvEmptyState;
     private EditText etSearch;
     private ChipGroup chipGroupCategories;
+    private MaterialCheckBox cbShowPast;
     private EventAdapter adapter;
 
     private String selectedCategory = "Toutes";
@@ -40,12 +43,14 @@ public class EventsActivity extends AppCompatActivity implements EventAdapter.On
         tvEmptyState = findViewById(R.id.tv_empty_state);
         etSearch = findViewById(R.id.et_search);
         chipGroupCategories = findViewById(R.id.chip_group_categories);
+        cbShowPast = findViewById(R.id.cb_show_past);
 
         rvEvents.setLayoutManager(new LinearLayoutManager(this));
 
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -54,21 +59,23 @@ public class EventsActivity extends AppCompatActivity implements EventAdapter.On
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
 
         chipGroupCategories.setOnCheckedStateChangeListener((group, checkedIds) -> {
             if (checkedIds.isEmpty()) {
                 selectedCategory = "Toutes";
             } else {
-                int checkedId = checkedIds.get(0);
-                Chip chip = findViewById(checkedId);
+                Chip chip = findViewById(checkedIds.get(0));
                 if (chip != null) {
                     selectedCategory = chip.getText().toString();
                 }
             }
             filterEvents();
         });
+
+        cbShowPast.setOnCheckedChangeListener((buttonView, isChecked) -> filterEvents());
     }
 
     @Override
@@ -78,7 +85,8 @@ public class EventsActivity extends AppCompatActivity implements EventAdapter.On
     }
 
     private void filterEvents() {
-        List<Event> filteredList = dbHelper.searchAndFilterEvents(searchQuery, selectedCategory);
+        boolean upcomingOnly = !cbShowPast.isChecked();
+        List<Event> filteredList = dbHelper.searchAndFilterEvents(searchQuery, selectedCategory, upcomingOnly);
 
         if (filteredList.isEmpty()) {
             tvEmptyState.setVisibility(View.VISIBLE);
@@ -105,6 +113,8 @@ public class EventsActivity extends AppCompatActivity implements EventAdapter.On
 
     @Override
     public void onFavoriteToggle(Event event, boolean newFavoriteStatus) {
-        // Updated in database
+        if (cbShowPast.isChecked()) {
+            filterEvents();
+        }
     }
 }
