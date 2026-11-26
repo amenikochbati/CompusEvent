@@ -71,12 +71,24 @@ cas « prévisions non encore disponibles ».
 
 ## Construction et installation
 
-Depuis Android Studio : *Build > Generate App Bundle / Build APK*, ou en ligne de commande :
+Depuis Android Studio : attendez la fin de la synchronisation Gradle (cliquez sur **Sync Now** si la
+bannière « Gradle files have changed » s'affiche), puis lancez la configuration **app** sur
+l'émulateur ou un appareil connecté. En ligne de commande :
 
 ```powershell
-.\gradlew.bat assembleDebug      # APK de debug installable
-.\gradlew.bat testDebugUnitTest  # tests unitaires JVM
+.\gradlew.bat clean assembleDebug testDebugUnitTest  # build complet + tests JVM
 ```
+
+### Dépannage « le bouton Run ne lance rien »
+
+1. Cliquez sur **Sync Now** dans la bannière jaune d'Android Studio, puis sur **Rebuild Project**.
+2. Vérifiez qu'un appareil/émulateur est bien sélectionné dans la liste déroulante des appareils.
+3. Si la synchronisation reste bloquée : *File > Invalidate Caches and Restart*.
+4. Le JDK fourni avec Android Studio (JBR 25) est compatible avec Gradle 9.6 ; le projet ne force
+   plus de téléchargement de JDK externe et le cache de configuration Gradle est désactivé pour
+   éviter les synchronisations obsolètes.
+5. Pour installer rapidement l'APK déjà signé sans repasser par Android Studio :
+   `adb install -r releases\CampusEvents-v1.0-release.apk`
 
 APK livrés dans [`releases/`](releases/) :
 - `CampusEvents-v1.0-release.apk` — version **signée** (v2/v3), vérifiée avec `apksigner` ;
