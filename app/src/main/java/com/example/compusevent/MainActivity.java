@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.OnEv
         View btnSeeAll = findViewById(R.id.btn_see_all);
         rvUpcomingEvents = findViewById(R.id.rv_upcoming_events);
         tvEmptyUpcoming = findViewById(R.id.tv_empty_upcoming);
+        NavigationHelper.forwardScrollFromHeader(this);
 
         rvUpcomingEvents.setLayoutManager(new LinearLayoutManager(this));
 

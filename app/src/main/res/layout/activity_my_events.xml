@@ -8,81 +8,98 @@
 
     <include layout="@layout/app_bar_simple" />
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_target"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="14dp"
-        app:cardBackgroundColor="@color/surface"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="0dp"
-        app:strokeColor="@color/line"
-        app:strokeWidth="1dp">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="6dp">
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="24dp">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_tab_favorites"
-                android:layout_width="0dp"
-                android:layout_height="42dp"
-                android:layout_marginEnd="4dp"
-                android:layout_weight="1"
-                android:backgroundTint="@color/action_blue"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:text="⭐ Favoris"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:cornerRadius="12dp" />
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/surface"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/line"
+                app:strokeWidth="1dp">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_tab_participations"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="0dp"
-                android:layout_height="42dp"
-                android:layout_marginStart="4dp"
-                android:layout_weight="1"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:text="✋ Participations"
-                android:textColor="@color/text_secondary"
-                android:textSize="12sp"
-                app:cornerRadius="12dp"
-                app:strokeColor="@color/action_blue"
-                app:strokeWidth="1dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="6dp">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_tab_favorites"
+                        android:layout_width="0dp"
+                        android:layout_height="42dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/action_blue"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:text="⭐ Favoris"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        app:cornerRadius="12dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_tab_participations"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="42dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:text="✋ Participations"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp"
+                        app:cornerRadius="12dp"
+                        app:strokeColor="@color/action_blue"
+                        app:strokeWidth="1dp" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:minHeight="200dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_my_events"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never" />
+
+                <TextView
+                    android:id="@+id/tv_empty_my_events"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="24dp"
+                    android:text="@string/no_favorites"
+                    android:textColor="@color/text_muted"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
+
+            </FrameLayout>
 
         </LinearLayout>
 
-    </com.google.android.material.card.MaterialCardView>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingTop="6dp">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_my_events"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingBottom="12dp" />
-
-        <TextView
-            android:id="@+id/tv_empty_my_events"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="24dp"
-            android:text="@string/no_favorites"
-            android:textColor="@color/text_muted"
-            android:textSize="14sp"
-            android:visibility="gone" />
-
-    </FrameLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
