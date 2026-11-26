@@ -21,6 +21,8 @@ d'annuler une inscription, tout en affichant la météo du lieu via une API exte
 - Historique des inscriptions : une annulation conserve la ligne et libère la place.
 - Météo Open-Meteo non bloquante, avec cache 45 min et timeout 5 s.
 - Messages clairs : événement complet, terminé, prévisions au-delà de 16 jours, quota API.
+- Interface épurée : en-tête fixe, sections espacées et tous les boutons cliquables.
+- Navigation simple sur toutes les pages : **Retour** et **Accueil** toujours visibles.
 
 ## Technologies
 
@@ -47,7 +49,8 @@ app/src/main/java/com/example/compusevent/
 ├── EventUtils.java            Règles pures testables (dates, statuts, places)
 ├── DatabaseHelper.java        Schéma, migration v1 → v2, transactions
 ├── WeatherService.java        Client Open-Meteo + cache
-└── WeatherData.java           DTO météo + codes WMO
+├── WeatherData.java           DTO météo + codes WMO
+└── NavigationHelper.java      En-tête Retour / Accueil commun à toutes les pages
 ```
 
 ### Modèle de données (SQLite v2)

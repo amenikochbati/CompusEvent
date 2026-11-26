@@ -6,63 +6,18 @@
     android:background="@color/bg_gray"
     android:orientation="vertical">
 
-    <!-- En-tête -->
+    <include layout="@layout/app_bar_simple" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_hero_gradient"
         android:orientation="vertical"
         android:paddingHorizontal="16dp"
-        android:paddingTop="14dp"
-        android:paddingBottom="16dp">
+        android:paddingTop="14dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/btn_back_events"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/bg_pill_white"
-                android:contentDescription="@string/btn_back"
-                android:src="@drawable/ic_arrow_back" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="À TON AGENDA"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:letterSpacing="0.05" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="De nouvelles expériences à vivre ensemble"
-                    android:textColor="#C7D6EA"
-                    android:textSize="11sp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <!-- Recherche -->
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="46dp"
-            android:layout_marginTop="16dp"
             android:background="@drawable/bg_search_round">
 
             <EditText
@@ -93,7 +48,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="12dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -102,8 +57,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Catégories"
-                android:textColor="@color/white"
-                android:textSize="13sp"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <com.google.android.material.button.MaterialButton
@@ -117,12 +72,12 @@
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:text="@string/btn_filter"
-                android:textColor="@color/white"
+                android:textColor="@color/action_blue"
                 android:textSize="11sp"
                 app:cornerRadius="18dp"
                 app:icon="@drawable/ic_filter"
-                app:iconTint="@color/white"
-                app:strokeColor="@color/overlay_white_strong"
+                app:iconTint="@color/action_blue"
+                app:strokeColor="@color/action_blue"
                 app:strokeWidth="1dp" />
 
             <com.google.android.material.checkbox.MaterialCheckBox
@@ -135,14 +90,13 @@
 
     </LinearLayout>
 
-    <!-- Filtres par catégorie -->
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/surface"
+        android:layout_marginTop="8dp"
         android:clipToPadding="false"
         android:paddingHorizontal="12dp"
-        android:paddingVertical="10dp"
+        android:paddingVertical="8dp"
         android:scrollbars="none">
 
         <com.google.android.material.chip.ChipGroup
@@ -244,14 +198,15 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_events"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:paddingTop="6dp"
+            android:paddingTop="4dp"
             android:paddingBottom="88dp" />
 
         <TextView
@@ -262,7 +217,7 @@
             android:padding="24dp"
             android:text="@string/no_events_found"
             android:textColor="@color/text_muted"
-            android:textSize="15sp"
+            android:textSize="14sp"
             android:visibility="gone" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

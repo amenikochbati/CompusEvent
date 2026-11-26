@@ -3,7 +3,6 @@ package com.example.compusevent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -28,6 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        NavigationHelper.setup(this, "Inscription", "Rejoins la communauté");
 
         dbHelper = new DatabaseHelper(this);
         sessionManager = new SessionManager(this);
@@ -40,9 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
         rbRoleAdmin = findViewById(R.id.rb_role_admin);
         btnRegister = findViewById(R.id.btn_register);
         tvGoToLogin = findViewById(R.id.tv_go_to_login);
-        ImageButton btnBack = findViewById(R.id.btn_back_register);
 
-        btnBack.setOnClickListener(v -> finish());
         btnRegister.setOnClickListener(v -> performRegister());
         tvGoToLogin.setOnClickListener(v -> finish());
     }

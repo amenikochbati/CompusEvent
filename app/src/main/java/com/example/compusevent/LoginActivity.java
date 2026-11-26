@@ -3,7 +3,6 @@ package com.example.compusevent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_login);
+        NavigationHelper.setup(this, "Connexion", "Espace étudiant");
 
         dbHelper = new DatabaseHelper(this);
 
@@ -39,9 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btn_login);
         btnGoToRegister = findViewById(R.id.btn_go_to_register);
         tvContinueGuest = findViewById(R.id.tv_continue_guest);
-        ImageButton btnBack = findViewById(R.id.btn_back_login);
 
-        btnBack.setOnClickListener(v -> finish());
         btnLogin.setOnClickListener(v -> performLogin());
 
         btnGoToRegister.setOnClickListener(v -> {

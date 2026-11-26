@@ -32,7 +32,7 @@ public class EventsActivity extends AppCompatActivity implements EventAdapter.On
     private EditText etSearch;
     private ChipGroup chipGroupCategories;
     private MaterialCheckBox cbShowPast;
-    private ImageButton btnBack, btnClearSearch;
+    private ImageButton btnClearSearch;
     private MaterialButton btnFilter;
     private FloatingActionButton fabAddEvent;
     private EventAdapter adapter;
@@ -47,20 +47,19 @@ public class EventsActivity extends AppCompatActivity implements EventAdapter.On
 
         dbHelper = new DatabaseHelper(this);
         sessionManager = new SessionManager(this);
+        NavigationHelper.setup(this, "Événements", "Découvre les activités du campus");
 
         rvEvents = findViewById(R.id.rv_events);
         tvEmptyState = findViewById(R.id.tv_empty_state);
         etSearch = findViewById(R.id.et_search);
         chipGroupCategories = findViewById(R.id.chip_group_categories);
         cbShowPast = findViewById(R.id.cb_show_past);
-        btnBack = findViewById(R.id.btn_back_events);
         btnClearSearch = findViewById(R.id.btn_clear_search);
         btnFilter = findViewById(R.id.btn_filter);
         fabAddEvent = findViewById(R.id.fab_add_event);
 
         rvEvents.setLayoutManager(new LinearLayoutManager(this));
 
-        btnBack.setOnClickListener(v -> finish());
         btnClearSearch.setOnClickListener(v -> etSearch.setText(""));
         btnFilter.setOnClickListener(v -> {
             cbShowPast.setChecked(!cbShowPast.isChecked());
@@ -118,8 +117,10 @@ public class EventsActivity extends AppCompatActivity implements EventAdapter.On
         btnFilter.setText(showPast ? "Passés affichés" : getString(R.string.btn_filter));
         btnFilter.setBackgroundTintList(ContextCompat.getColorStateList(this,
                 showPast ? R.color.action_blue : android.R.color.transparent));
-        btnFilter.setTextColor(ContextCompat.getColor(this, R.color.white));
-        btnFilter.setStrokeColorResource(showPast ? R.color.action_blue : R.color.overlay_white_strong);
+        btnFilter.setTextColor(ContextCompat.getColor(this,
+                showPast ? R.color.white : R.color.action_blue));
+        btnFilter.setIconTintResource(showPast ? R.color.white : R.color.action_blue);
+        btnFilter.setStrokeColorResource(R.color.action_blue);
     }
 
     @Override

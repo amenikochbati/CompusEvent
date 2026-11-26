@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +40,7 @@ public class AddEditEventActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_add_edit_event);
+        NavigationHelper.setup(this, "Administration", "Créer ou modifier un événement");
 
         dbHelper = new DatabaseHelper(this);
 
@@ -56,8 +56,6 @@ public class AddEditEventActivity extends AppCompatActivity {
         spCategory = findViewById(R.id.sp_event_category);
         btnSave = findViewById(R.id.btn_save_event);
         btnDelete = findViewById(R.id.btn_delete_event);
-        ImageButton btnBack = findViewById(R.id.btn_back_add_edit);
-        btnBack.setOnClickListener(v -> finish());
 
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, categories);

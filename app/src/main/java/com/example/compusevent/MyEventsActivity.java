@@ -3,7 +3,6 @@ package com.example.compusevent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +20,6 @@ public class MyEventsActivity extends AppCompatActivity implements EventAdapter.
     private RecyclerView rvMyEvents;
     private TextView tvEmptyMyEvents;
     private MaterialButton btnTabFavorites, btnTabParticipations;
-    private ImageButton btnBack;
     private EventAdapter adapter;
 
     private boolean isFavoritesTab = true;
@@ -32,16 +30,15 @@ public class MyEventsActivity extends AppCompatActivity implements EventAdapter.
         setContentView(R.layout.activity_my_events);
 
         dbHelper = new DatabaseHelper(this);
+        NavigationHelper.setup(this, "Mes événements", "Favoris et participations");
 
         rvMyEvents = findViewById(R.id.rv_my_events);
         tvEmptyMyEvents = findViewById(R.id.tv_empty_my_events);
         btnTabFavorites = findViewById(R.id.btn_tab_favorites);
         btnTabParticipations = findViewById(R.id.btn_tab_participations);
-        btnBack = findViewById(R.id.btn_back_my_events);
 
         rvMyEvents.setLayoutManager(new LinearLayoutManager(this));
-
-        btnBack.setOnClickListener(v -> finish());
+        updateTabStyles();
 
         btnTabFavorites.setOnClickListener(v -> {
             isFavoritesTab = true;
@@ -69,18 +66,18 @@ public class MyEventsActivity extends AppCompatActivity implements EventAdapter.
             btnTabFavorites.setStrokeWidth(0);
 
             btnTabParticipations.setBackgroundTintList(ContextCompat.getColorStateList(this, android.R.color.transparent));
-            btnTabParticipations.setTextColor(ContextCompat.getColor(this, R.color.white));
-            btnTabParticipations.setStrokeColorResource(R.color.white);
-            btnTabParticipations.setStrokeWidth(2);
+            btnTabParticipations.setTextColor(ContextCompat.getColor(this, R.color.text_secondary));
+            btnTabParticipations.setStrokeColorResource(R.color.action_blue);
+            btnTabParticipations.setStrokeWidth(1);
         } else {
             btnTabParticipations.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.action_blue));
             btnTabParticipations.setTextColor(ContextCompat.getColor(this, R.color.white));
             btnTabParticipations.setStrokeWidth(0);
 
             btnTabFavorites.setBackgroundTintList(ContextCompat.getColorStateList(this, android.R.color.transparent));
-            btnTabFavorites.setTextColor(ContextCompat.getColor(this, R.color.white));
-            btnTabFavorites.setStrokeColorResource(R.color.white);
-            btnTabFavorites.setStrokeWidth(2);
+            btnTabFavorites.setTextColor(ContextCompat.getColor(this, R.color.text_secondary));
+            btnTabFavorites.setStrokeColorResource(R.color.action_blue);
+            btnTabFavorites.setStrokeWidth(1);
         }
     }
 

@@ -3,7 +3,6 @@ package com.example.compusevent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -26,7 +25,6 @@ public class EventDetailActivity extends AppCompatActivity {
 
     private TextView tvCategory, tvTitle, tvDateTime, tvLocation, tvCapacity, tvDescription, tvRegisteredCount;
     private MaterialButton btnFavorite, btnParticipate, btnRefreshWeather, btnAdminEditEvent;
-    private ImageButton btnBackDetail;
 
     private ProgressBar pbWeather;
     private TextView tvWeatherError;
@@ -75,8 +73,7 @@ public class EventDetailActivity extends AppCompatActivity {
         btnParticipate = findViewById(R.id.btn_detail_participate);
         btnRefreshWeather = findViewById(R.id.btn_refresh_weather);
         btnAdminEditEvent = findViewById(R.id.btn_admin_edit_event);
-        btnBackDetail = findViewById(R.id.btn_back_detail);
-        btnBackDetail.setOnClickListener(v -> finish());
+        NavigationHelper.setup(this, "Détail de l'événement", "Infos, favoris et participation");
 
         pbWeather = findViewById(R.id.pb_weather);
         tvWeatherError = findViewById(R.id.tv_weather_error);
