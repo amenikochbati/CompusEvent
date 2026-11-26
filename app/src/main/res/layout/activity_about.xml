@@ -85,7 +85,7 @@
                     android:lineSpacingExtra="4dp"
                     android:textColor="@color/text_dark"
                     android:textSize="14sp"
-                    android:text="• Langage : Java\n• Interface : Layouts XML Android\n• Base de données : SQLite (SQLiteOpenHelper)\n• API Externe : Open-Meteo REST / JSON\n• Environnement : Android Studio\n• Versionnement : Git &amp; GitHub" />
+                    android:text="• Langage : Java 11\n• Interface : Layouts XML Android\n• Base de données : SQLite (SQLiteOpenHelper, schéma v2)\n• API Externe : Open-Meteo REST / JSON (cache 45 min)\n• Règles : capacité, doublons, dates, historique d'inscription\n• Environnement : Android Studio / Gradle\n• Versionnement : Git &amp; GitHub" />
 
                 <TextView
                     android:layout_width="wrap_content"
