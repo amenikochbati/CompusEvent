@@ -16,7 +16,8 @@
 
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -26,22 +27,26 @@
         <activity
             android:name=".EventsActivity"
             android:exported="false"
-            android:label="Événements" />
+            android:label="Événements"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".EventDetailActivity"
             android:exported="false"
-            android:label="Détail de l'événement" />
+            android:label="Détail de l'événement"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".MyEventsActivity"
             android:exported="false"
-            android:label="Mes Événements" />
+            android:label="Mes Événements"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".AboutActivity"
             android:exported="false"
-            android:label="À propos" />
+            android:label="À propos"
+            android:screenOrientation="portrait" />
 
     </application>
 
