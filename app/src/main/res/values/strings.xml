@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CampusEvents Mobile</string>
+    <string name="app_tagline">La vie du campus, à portée de clic.</string>
+
+    <!-- Navigation & Buttons -->
+    <string name="btn_explore">Explorer les événements</string>
+    <string name="btn_my_events">Mes Événements</string>
+    <string name="btn_about">À Propos</string>
+    <string name="btn_weather">Voir la météo</string>
+    <string name="btn_participate">Participer</string>
+    <string name="btn_cancel_participation">Annuler ma participation</string>
+    <string name="btn_favorite">Favori</string>
+    <string name="btn_back">Retour</string>
+    <string name="btn_search">Rechercher</string>
+
+    <!-- Headers & Labels -->
+    <string name="title_upcoming_events">Événements à venir</string>
+    <string name="title_all_events">Tous les Événements</string>
+    <string name="title_favorites">Mes Favoris</string>
+    <string name="title_participations">Mes Participations</string>
+    <string name="title_my_events">Mes Événements et Favoris</string>
+    <string name="title_about">À propos de CampusEvents</string>
+    <string name="search_hint">Rechercher par titre...</string>
+    <string name="category_all">Toutes</string>
+
+    <!-- Categories -->
+    <string name="cat_tech">Technologie</string>
+    <string name="cat_culture">Culture</string>
+    <string name="cat_sport">Sport</string>
+    <string name="cat_solidarity">Solidarité</string>
+    <string name="cat_orientation">Orientation</string>
+    <string name="cat_environment">Environnement</string>
+
+    <!-- Weather section -->
+    <string name="weather_title">Météo de l\'événement</string>
+    <string name="weather_loading">Chargement des données météo...</string>
+    <string name="weather_error">Prévisions météo non disponibles ou problème de connexion.</string>
+    <string name="weather_credit">Données fournies par l\'API Open-Meteo</string>
+
+    <!-- Empty states -->
+    <string name="no_events_found">Aucun événement trouvé.</string>
+    <string name="no_favorites">Aucun événement dans vos favoris.</string>
+    <string name="no_participations">Vous ne participez à aucun événement pour le moment.</string>
+</resources>
