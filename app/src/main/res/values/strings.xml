@@ -14,6 +14,7 @@
     <string name="btn_back">Retour</string>
     <string name="btn_search">Rechercher</string>
     <string name="btn_refresh">Rafraîchir</string>
+    <string name="btn_filter">Filtrer</string>
 
     <!-- Headers & Labels -->
     <string name="title_upcoming_events">Événements à venir</string>

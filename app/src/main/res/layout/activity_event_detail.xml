@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_gray">
+    android:background="@color/bg_gray"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,104 +12,168 @@
         android:orientation="vertical"
         android:paddingBottom="24dp">
 
-        <!-- Top Header -->
-        <LinearLayout
+        <!-- Hero -->
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/primary_blue"
-            android:orientation="vertical"
-            android:padding="20dp">
+            android:background="@drawable/bg_hero_gradient">
 
-            <TextView
-                android:id="@+id/tv_detail_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/action_blue"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="4dp"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:text="Catégorie" />
-
-            <TextView
-                android:id="@+id/tv_detail_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:textColor="@color/white"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:text="Titre de l'événement" />
-
-            <TextView
-                android:id="@+id/tv_detail_date_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textColor="#E5E7EB"
-                android:textSize="14sp"
-                android:text="📅 Date et Heure" />
-
-            <TextView
-                android:id="@+id/tv_detail_location"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:textColor="#E5E7EB"
-                android:textSize="14sp"
-                android:text="📍 Lieu" />
-
-            <TextView
-                android:id="@+id/tv_detail_capacity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:textColor="#D1D5DB"
-                android:textSize="13sp"
-                android:text="👥 Capacité: 150 places" />
+            <View
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="-60dp"
+                android:layout_marginEnd="-50dp"
+                android:background="@drawable/bg_hero_glow" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingTop="14dp"
+                android:paddingBottom="18dp">
+
+                <ImageButton
+                    android:id="@+id/btn_back_detail"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_pill_white"
+                    android:contentDescription="@string/btn_back"
+                    android:src="@drawable/ic_arrow_back" />
 
                 <TextView
-                    android:id="@+id/tv_detail_status"
+                    android:id="@+id/tv_detail_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/weather_turquoise"
-                    android:paddingHorizontal="10dp"
-                    android:paddingVertical="4dp"
+                    android:layout_marginTop="14dp"
+                    android:background="@drawable/bg_category_pill"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="5dp"
+                    android:text="Technologie"
                     android:textColor="@color/white"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:text="À venir" />
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_detail_places"
-                    android:layout_width="0dp"
+                    android:id="@+id/tv_detail_title"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_weight="1"
-                    android:layout_gravity="center_vertical"
-                    android:textColor="#E5E7EB"
-                    android:textSize="13sp"
-                    android:text="Places disponibles : 150" />
+                    android:layout_marginTop="10dp"
+                    android:text="Titre de l'événement"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bg_detail_info"
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_calendar"
+                            android:tint="@color/white" />
+
+                        <TextView
+                            android:id="@+id/tv_detail_date_time"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:text="samedi 28 novembre 2026 à 09:00"
+                            android:textColor="@color/white"
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_location"
+                            android:tint="@color/white" />
+
+                        <TextView
+                            android:id="@+id/tv_detail_location"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:text="Amphi Informatique - Tunis"
+                            android:textColor="@color/white"
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_users"
+                            android:tint="@color/white" />
+
+                        <TextView
+                            android:id="@+id/tv_detail_capacity"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:text="Capacité totale : 150 places"
+                            android:textColor="#D7E3F2"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_detail_registered_count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Inscrits : 0 / 150 (Places dispo : 150)"
+                        android:textColor="#6EE7B7"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
+        </FrameLayout>
 
-        <!-- Main Info Card -->
+        <!-- À propos + actions -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            app:cardCornerRadius="12dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="@color/card_bg"
+            app:cardCornerRadius="18dp"
             app:cardElevation="2dp"
-            app:cardBackgroundColor="@color/card_bg">
+            app:strokeColor="@color/line"
+            app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -120,65 +185,88 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="À propos de l'événement"
-                    android:textColor="@color/primary_blue"
+                    android:textColor="@color/text_primary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
+
+                <View
+                    android:layout_width="36dp"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@color/weather_turquoise" />
 
                 <TextView
                     android:id="@+id/tv_detail_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:lineSpacingExtra="4dp"
-                    android:textColor="@color/text_dark"
-                    android:textSize="14sp"
-                    android:text="Description détaillée de l'événement..." />
+                    android:layout_marginTop="12dp"
+                    android:lineSpacingExtra="3dp"
+                    android:text="Description détaillée de l'événement..."
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp" />
 
-                <!-- Favorite & Participate Action Buttons -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="18dp"
                     android:orientation="horizontal">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_detail_favorite"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="48dp"
                         android:layout_marginEnd="6dp"
                         android:layout_weight="1"
                         android:text="Ajouter aux favoris"
-                        android:textColor="@color/primary_blue"
-                        app:strokeColor="@color/primary_blue" />
+                        android:textColor="@color/action_blue"
+                        android:textSize="12sp"
+                        app:cornerRadius="12dp"
+                        app:strokeColor="@color/action_blue"
+                        app:strokeWidth="1dp" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_detail_participate"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="48dp"
                         android:layout_marginStart="6dp"
                         android:layout_weight="1"
                         android:backgroundTint="@color/action_blue"
                         android:text="@string/btn_participate"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        app:cornerRadius="12dp" />
 
                 </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_admin_edit_event"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:layout_marginTop="12dp"
+                    android:backgroundTint="@color/green"
+                    android:text="Modifier l'événement (Admin)"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    android:visibility="gone"
+                    app:cornerRadius="12dp"
+                    app:icon="@drawable/ic_edit"
+                    app:iconTint="@color/white" />
 
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Weather Card (Open-Meteo Integration) -->
+        <!-- Météo -->
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/weather_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
+            android:layout_marginTop="14dp"
             app:cardBackgroundColor="@color/card_bg"
-            app:strokeColor="@color/weather_turquoise"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="2dp"
+            app:strokeColor="@color/line"
             app:strokeWidth="1dp">
 
             <LinearLayout
@@ -190,16 +278,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/weather_turquoise"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:padding="12dp">
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="10dp">
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:src="@drawable/ic_sun" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
                         android:layout_weight="1"
                         android:text="@string/weather_title"
                         android:textColor="@color/white"
-                        android:textSize="16sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <com.google.android.material.button.MaterialButton
@@ -207,7 +303,10 @@
                         style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Rafraîchir"
+                        android:minWidth="0dp"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:text="@string/btn_refresh"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
 
@@ -230,9 +329,11 @@
                         android:id="@+id/tv_weather_error"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/bg_card_soft"
+                        android:padding="12dp"
                         android:text="@string/weather_error"
-                        android:textColor="@color/error_red"
-                        android:textSize="14sp"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="13sp"
                         android:visibility="gone" />
 
                     <LinearLayout
@@ -246,37 +347,37 @@
                             android:id="@+id/tv_weather_temp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/primary_blue"
+                            android:text="22.5 °C"
+                            android:textColor="@color/text_primary"
                             android:textSize="28sp"
-                            android:textStyle="bold"
-                            android:text="22.5 °C" />
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/tv_weather_desc"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:textColor="@color/text_dark"
-                            android:textSize="16sp"
-                            android:text="Ensoleillé" />
+                            android:layout_marginTop="2dp"
+                            android:text="Ensoleillé"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="15sp" />
 
                         <TextView
                             android:id="@+id/tv_weather_temp_minmax"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="10dp"
+                            android:text="Min : 15.0 °C | Max : 25.0 °C"
                             android:textColor="@color/text_muted"
-                            android:textSize="13sp"
-                            android:text="Min: 15.0°C | Max: 25.0°C" />
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/tv_weather_details"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
+                            android:text="Vent : 12 km/h | Humidité : 60%"
                             android:textColor="@color/text_muted"
-                            android:textSize="13sp"
-                            android:text="Vent: 12 km/h | Humidité: 60% | Pluie: 10%" />
+                            android:textSize="12sp" />
 
                     </LinearLayout>
 
@@ -286,7 +387,7 @@
                         android:layout_marginTop="12dp"
                         android:text="@string/weather_credit"
                         android:textColor="@color/text_muted"
-                        android:textSize="11sp"
+                        android:textSize="10sp"
                         android:textStyle="italic" />
 
                 </LinearLayout>

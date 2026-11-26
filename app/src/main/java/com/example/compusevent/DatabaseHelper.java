@@ -21,16 +21,18 @@ import java.util.Locale;
  *  - RG03 : le nombre d'inscriptions actives ne dépasse jamais la capacité ;
  *  - RG10 : aucun enregistrement n'est accepté pour un événement terminé ;
  *  - T07 : une annulation conserve l'historique et libère la place.
+ *  - Auth & Admin : Gestion des utilisateurs (USER/ADMIN), création, modification et suppression d'événements.
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "campusevents.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     public static final String TABLE_EVENTS = "events";
     public static final String TABLE_FAVORITES = "favorites";
     public static final String TABLE_PARTICIPATIONS = "participations"; // ancienne table (v1)
     public static final String TABLE_REGISTRATIONS = "registrations";   // nouvelle table (v2)
+    public static final String TABLE_USERS = "users";                   // table utilisateurs (v3)
 
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_TITLE = "title";
@@ -46,6 +48,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_STATUS = "status";
     public static final String COLUMN_CREATED_AT = "created_at";
     public static final String COLUMN_CANCELLED_AT = "cancelled_at";
+
+    // Users columns
+    public static final String COLUMN_USER_NAME = "name";
+    public static final String COLUMN_USER_EMAIL = "email";
+    public static final String COLUMN_USER_PASSWORD = "password";
+    public static final String COLUMN_USER_ROLE = "role";
 
     public static final String STATUS_ACTIVE = "active";
     public static final String STATUS_CANCELLED = "cancelled";
@@ -90,13 +98,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "FOREIGN KEY(" + COLUMN_EVENT_ID + ") REFERENCES " + TABLE_EVENTS + "(" + COLUMN_ID + ")" +
                 ");");
 
+        db.execSQL("CREATE TABLE " + TABLE_USERS + " (" +
+                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_USER_NAME + " TEXT NOT NULL, " +
+                COLUMN_USER_EMAIL + " TEXT UNIQUE NOT NULL, " +
+                COLUMN_USER_PASSWORD + " TEXT NOT NULL, " +
+                COLUMN_USER_ROLE + " TEXT NOT NULL DEFAULT '" + User.ROLE_USER + "', " +
+                COLUMN_CREATED_AT + " TEXT" +
+                ");");
+
         insertDemoEvents(db);
+        insertDefaultUsers(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (oldVersion < 2) {
-            // Migration sans perte : les anciennes participations deviennent des inscriptions actives.
             db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_REGISTRATIONS + " (" +
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_EVENT_ID + " INTEGER UNIQUE NOT NULL, " +
@@ -112,11 +129,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         " FROM " + TABLE_PARTICIPATIONS);
                 db.execSQL("DROP TABLE IF EXISTS " + TABLE_PARTICIPATIONS);
             }
-        } else {
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_REGISTRATIONS);
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_FAVORITES);
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENTS);
-            onCreate(db);
+        }
+        if (oldVersion < 3) {
+            db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_USERS + " (" +
+                    COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_USER_NAME + " TEXT NOT NULL, " +
+                    COLUMN_USER_EMAIL + " TEXT UNIQUE NOT NULL, " +
+                    COLUMN_USER_PASSWORD + " TEXT NOT NULL, " +
+                    COLUMN_USER_ROLE + " TEXT NOT NULL DEFAULT '" + User.ROLE_USER + "', " +
+                    COLUMN_CREATED_AT + " TEXT" +
+                    ");");
+            insertDefaultUsers(db);
         }
     }
 
@@ -128,7 +151,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return exists;
     }
 
-    /** Les événements de démonstration sont toujours dans le futur, quel que soit le jour de l'examen. */
+    private void insertDefaultUsers(SQLiteDatabase db) {
+        // Compte Admin par défaut
+        ContentValues admin = new ContentValues();
+        admin.put(COLUMN_USER_NAME, "Administrateur Campus");
+        admin.put(COLUMN_USER_EMAIL, "admin@campus.tn");
+        admin.put(COLUMN_USER_PASSWORD, "admin123");
+        admin.put(COLUMN_USER_ROLE, User.ROLE_ADMIN);
+        admin.put(COLUMN_CREATED_AT, now());
+        db.insertWithOnConflict(TABLE_USERS, null, admin, SQLiteDatabase.CONFLICT_IGNORE);
+
+        // Compte Étudiant/User par défaut
+        ContentValues user = new ContentValues();
+        user.put(COLUMN_USER_NAME, "Étudiant Test");
+        user.put(COLUMN_USER_EMAIL, "etudiant@campus.tn");
+        user.put(COLUMN_USER_PASSWORD, "student123");
+        user.put(COLUMN_USER_ROLE, User.ROLE_USER);
+        user.put(COLUMN_CREATED_AT, now());
+        db.insertWithOnConflict(TABLE_USERS, null, user, SQLiteDatabase.CONFLICT_IGNORE);
+    }
+
     private void insertDemoEvents(SQLiteDatabase db) {
         String[] titles = {
                 "Hackathon Campus Tech",
@@ -158,7 +200,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         double[] latitudes = {36.8065, 36.8000, 36.8100, 36.8050, 36.8150, 36.8080};
         double[] longitudes = {10.1815, 10.1800, 10.1900, 10.1850, 10.1750, 10.1820};
         int[] capacities = {150, 300, 200, 500, 400, 100};
-        int[] offsets = {2, 5, 9, 12, 15, 20}; // le dernier dépasse 16 jours : cas météo "non disponible"
+        int[] offsets = {2, 5, 9, 12, 15, 20};
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         for (int i = 0; i < titles.length; i++) {
@@ -184,6 +226,80 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_EVENTS, null, values);
     }
 
+    // --- AUTHENTIFICATION (USER & ADMIN) ---
+
+    public boolean registerUser(String name, String email, String password, String role) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_NAME, name);
+        values.put(COLUMN_USER_EMAIL, email.trim().toLowerCase(Locale.ROOT));
+        values.put(COLUMN_USER_PASSWORD, password);
+        values.put(COLUMN_USER_ROLE, role != null ? role : User.ROLE_USER);
+        values.put(COLUMN_CREATED_AT, now());
+        long id = db.insertWithOnConflict(TABLE_USERS, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+        return id != -1;
+    }
+
+    public User loginUser(String email, String password) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String formattedEmail = email.trim().toLowerCase(Locale.ROOT);
+        Cursor cursor = db.query(TABLE_USERS, null,
+                COLUMN_USER_EMAIL + "=? AND " + COLUMN_USER_PASSWORD + "=?",
+                new String[]{formattedEmail, password}, null, null, null);
+
+        User user = null;
+        if (cursor.moveToFirst()) {
+            user = new User(
+                    cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_NAME)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_EMAIL)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_PASSWORD)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_ROLE))
+            );
+        }
+        cursor.close();
+        return user;
+    }
+
+    // --- GESTION DES ÉVÉNEMENTS (ADMIN CRUD) ---
+
+    public long addEvent(Event event) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_TITLE, event.getTitle());
+        values.put(COLUMN_DESCRIPTION, event.getDescription());
+        values.put(COLUMN_DATE, event.getDate());
+        values.put(COLUMN_TIME, event.getTime());
+        values.put(COLUMN_LOCATION, event.getLocation());
+        values.put(COLUMN_CATEGORY, event.getCategory());
+        values.put(COLUMN_LATITUDE, event.getLatitude());
+        values.put(COLUMN_LONGITUDE, event.getLongitude());
+        values.put(COLUMN_CAPACITY, event.getCapacity());
+        return db.insert(TABLE_EVENTS, null, values);
+    }
+
+    public boolean updateEvent(Event event) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_TITLE, event.getTitle());
+        values.put(COLUMN_DESCRIPTION, event.getDescription());
+        values.put(COLUMN_DATE, event.getDate());
+        values.put(COLUMN_TIME, event.getTime());
+        values.put(COLUMN_LOCATION, event.getLocation());
+        values.put(COLUMN_CATEGORY, event.getCategory());
+        values.put(COLUMN_LATITUDE, event.getLatitude());
+        values.put(COLUMN_LONGITUDE, event.getLongitude());
+        values.put(COLUMN_CAPACITY, event.getCapacity());
+        return db.update(TABLE_EVENTS, values, COLUMN_ID + "=?", new String[]{String.valueOf(event.getId())}) > 0;
+    }
+
+    public boolean deleteEvent(int eventId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_FAVORITES, COLUMN_EVENT_ID + "=?", new String[]{String.valueOf(eventId)});
+        db.delete(TABLE_REGISTRATIONS, COLUMN_EVENT_ID + "=?", new String[]{String.valueOf(eventId)});
+        return db.delete(TABLE_EVENTS, COLUMN_ID + "=?", new String[]{String.valueOf(eventId)}) > 0;
+    }
+
     // --- Lecture des événements ---
 
     public List<Event> getAllEvents() {
@@ -195,15 +311,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String today = new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(new Date());
         Cursor cursor = db.query(TABLE_EVENTS, null, COLUMN_DATE + " >= ?",
                 new String[]{today}, null, null, COLUMN_DATE + " ASC LIMIT " + limit);
-        List<Event> events = readEvents(db, cursor);
-        return events;
+        return readEvents(db, cursor);
     }
 
     public List<Event> searchAndFilterEvents(String searchQuery, String category) {
         return searchAndFilterEvents(searchQuery, category, false);
     }
 
-    /** Recherche sur le titre, la description et le lieu ; filtre catégorie et événements à venir. */
     public List<Event> searchAndFilterEvents(String searchQuery, String category, boolean upcomingOnly) {
         SQLiteDatabase db = this.getReadableDatabase();
         StringBuilder selection = new StringBuilder();
@@ -319,11 +433,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // --- Inscriptions (RG02, RG03, RG10, T07) ---
 
-    /**
-     * Inscrit l'étudiant à un événement. Une transaction garantit que le contrôle de capacité
-     * et l'écriture sont atomiques. Si l'étudiant avait déjà annulé, la ligne est réactivée
-     * (unicité student/event préservée, pas de doublon).
-     */
     public int registerForEvent(int eventId) {
         SQLiteDatabase db = this.getWritableDatabase();
         int result = REGISTER_ERROR;
@@ -373,7 +482,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    /** Annule l'inscription active : la place est libérée, l'historique est conservé. */
     public boolean cancelRegistration(int eventId) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -410,12 +518,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return status;
     }
 
-    /** Inscriptions actives (onglet « Participations »). */
     public List<Event> getParticipatedEvents() {
         return getRegistrations(false);
     }
 
-    /** Toutes les inscriptions, y compris annulées (historique). */
     public List<Event> getRegistrationHistory() {
         return getRegistrations(true);
     }

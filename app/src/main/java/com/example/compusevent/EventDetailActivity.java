@@ -1,7 +1,9 @@
 package com.example.compusevent;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -11,22 +13,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.card.MaterialCardView;
 
 import java.util.Locale;
 
-/** Fiche événement : participation contrôlée et météo Open-Meteo non bloquante. */
+/** Fiche événement : participation contrôlée, météo Open-Meteo et accès modification Admin. */
 public class EventDetailActivity extends AppCompatActivity {
 
     private DatabaseHelper dbHelper;
+    private SessionManager sessionManager;
     private Event event;
     private int eventId = -1;
 
-    private TextView tvCategory, tvTitle, tvDateTime, tvLocation, tvCapacity, tvDescription;
-    private TextView tvStatus, tvPlaces;
-    private MaterialButton btnFavorite, btnParticipate, btnRefreshWeather;
+    private TextView tvCategory, tvTitle, tvDateTime, tvLocation, tvCapacity, tvDescription, tvRegisteredCount;
+    private MaterialButton btnFavorite, btnParticipate, btnRefreshWeather, btnAdminEditEvent;
+    private ImageButton btnBackDetail;
 
-    private MaterialCardView weatherCard;
     private ProgressBar pbWeather;
     private TextView tvWeatherError;
     private LinearLayout layoutWeatherContent;
@@ -38,6 +39,8 @@ public class EventDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event_detail);
 
         dbHelper = new DatabaseHelper(this);
+        sessionManager = new SessionManager(this);
+
         eventId = getIntent().getIntExtra("EVENT_ID", -1);
         event = dbHelper.getEventById(eventId);
         if (event == null) {
@@ -52,21 +55,29 @@ public class EventDetailActivity extends AppCompatActivity {
         prepareWeather();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        reloadEvent();
+        displayEventDetails();
+    }
+
     private void initViews() {
         tvCategory = findViewById(R.id.tv_detail_category);
         tvTitle = findViewById(R.id.tv_detail_title);
         tvDateTime = findViewById(R.id.tv_detail_date_time);
         tvLocation = findViewById(R.id.tv_detail_location);
         tvCapacity = findViewById(R.id.tv_detail_capacity);
+        tvRegisteredCount = findViewById(R.id.tv_detail_registered_count);
         tvDescription = findViewById(R.id.tv_detail_description);
-        tvStatus = findViewById(R.id.tv_detail_status);
-        tvPlaces = findViewById(R.id.tv_detail_places);
 
         btnFavorite = findViewById(R.id.btn_detail_favorite);
         btnParticipate = findViewById(R.id.btn_detail_participate);
         btnRefreshWeather = findViewById(R.id.btn_refresh_weather);
+        btnAdminEditEvent = findViewById(R.id.btn_admin_edit_event);
+        btnBackDetail = findViewById(R.id.btn_back_detail);
+        btnBackDetail.setOnClickListener(v -> finish());
 
-        weatherCard = findViewById(R.id.weather_card);
         pbWeather = findViewById(R.id.pb_weather);
         tvWeatherError = findViewById(R.id.tv_weather_error);
         layoutWeatherContent = findViewById(R.id.layout_weather_content);
@@ -74,41 +85,38 @@ public class EventDetailActivity extends AppCompatActivity {
         tvWeatherDesc = findViewById(R.id.tv_weather_desc);
         tvWeatherTempMinMax = findViewById(R.id.tv_weather_temp_minmax);
         tvWeatherDetails = findViewById(R.id.tv_weather_details);
+
+        if (sessionManager.isAdmin()) {
+            btnAdminEditEvent.setVisibility(View.VISIBLE);
+            btnAdminEditEvent.setOnClickListener(v -> {
+                Intent intent = new Intent(EventDetailActivity.this, AddEditEventActivity.class);
+                intent.putExtra("EVENT_ID", event.getId());
+                startActivity(intent);
+            });
+        } else {
+            btnAdminEditEvent.setVisibility(View.GONE);
+        }
     }
 
     private void displayEventDetails() {
+        if (event == null) return;
         int active = dbHelper.getActiveRegistrationCount(event.getId());
         int available = EventUtils.getAvailablePlaces(event, active);
-        String status = EventUtils.getStatusLabel(event, active);
 
         tvCategory.setText(event.getCategory());
         tvTitle.setText(event.getTitle());
-        tvDateTime.setText("📅 " + EventUtils.formatFrenchDate(event.getDate()) + " à " + event.getTime());
-        tvLocation.setText("📍 " + event.getLocation());
-        tvCapacity.setText("👥 " + getString(R.string.label_available_places) + " : " + available
-                + " / " + event.getCapacity());
+        tvDateTime.setText(EventUtils.formatFrenchDate(event.getDate()) + " à " + event.getTime());
+        tvLocation.setText(event.getLocation());
+        tvCapacity.setText("Capacité totale : " + event.getCapacity() + " places");
+        tvRegisteredCount.setText("Inscrits : " + active + " / " + event.getCapacity() + " (Places dispo : " + available + ")");
         tvDescription.setText(event.getDescription());
-
-        tvStatus.setText(status);
-        int statusColor;
-        if ("Terminé".equals(status)) {
-            statusColor = R.color.text_muted;
-        } else if ("Complet".equals(status)) {
-            statusColor = R.color.error_red;
-        } else if ("Places limitées".equals(status)) {
-            statusColor = R.color.warning_orange;
-        } else {
-            statusColor = R.color.weather_turquoise;
-        }
-        tvStatus.setBackgroundColor(ContextCompat.getColor(this, statusColor));
-        tvPlaces.setText(getString(R.string.label_available_places) + " : " + available);
 
         updateFavoriteButtonState();
         updateParticipateButtonState(available);
     }
 
     private void updateFavoriteButtonState() {
-        btnFavorite.setText(event.isFavorite() ? "Retirer des favoris ⭐" : "Ajouter aux favoris ☆");
+        btnFavorite.setText(event.isFavorite() ? "Retirer des favoris" : "Ajouter aux favoris");
     }
 
     private void updateParticipateButtonState(int availablePlaces) {
@@ -146,6 +154,13 @@ public class EventDetailActivity extends AppCompatActivity {
         });
 
         btnParticipate.setOnClickListener(v -> {
+            if (!sessionManager.isLoggedIn()) {
+                Toast.makeText(this, "Veuillez vous connecter pour participer aux événements.", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                return;
+            }
+
             if (event.isParticipating()) {
                 boolean cancelled = dbHelper.cancelRegistration(event.getId());
                 Toast.makeText(this, cancelled ? R.string.cancel_success : R.string.register_error,
@@ -172,7 +187,6 @@ public class EventDetailActivity extends AppCompatActivity {
             }
             reloadEvent();
             displayEventDetails();
-            prepareWeather();
         });
 
         btnRefreshWeather.setOnClickListener(v -> loadWeatherInfo(true));
@@ -182,13 +196,10 @@ public class EventDetailActivity extends AppCompatActivity {
         event = dbHelper.getEventById(eventId);
     }
 
-    /** Un événement passé n'affiche pas la météo ; au-delà de 16 jours, message explicite. */
     private void prepareWeather() {
-        if (EventUtils.isPast(event) || (event.getLatitude() == 0 && event.getLongitude() == 0)) {
-            weatherCard.setVisibility(View.GONE);
+        if (event == null || EventUtils.isPast(event) || (event.getLatitude() == 0 && event.getLongitude() == 0)) {
             return;
         }
-        weatherCard.setVisibility(View.VISIBLE);
 
         int days = EventUtils.daysUntil(event);
         if (days < 0 || days > EventUtils.MAX_FORECAST_DAYS) {
@@ -205,6 +216,7 @@ public class EventDetailActivity extends AppCompatActivity {
     }
 
     private void loadWeatherInfo(boolean forceRefresh) {
+        if (event == null) return;
         pbWeather.setVisibility(View.VISIBLE);
         tvWeatherError.setVisibility(View.GONE);
         layoutWeatherContent.setVisibility(View.GONE);

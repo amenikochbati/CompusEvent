@@ -55,8 +55,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
         holder.tvTitle.setText(event.getTitle());
         holder.tvCategory.setText(event.getCategory());
-        holder.tvDate.setText("📅 " + EventUtils.formatFrenchDate(event.getDate()) + " (" + event.getTime() + ")");
-        holder.tvLocation.setText("📍 " + event.getLocation());
+        holder.tvCategory.setBackgroundTintList(ContextCompat.getColorStateList(context, categoryColor(event.getCategory())));
+        holder.tvCategory.setTextColor(ContextCompat.getColor(context, R.color.white));
+        holder.tvDate.setText(EventUtils.formatFrenchDate(event.getDate()) + " (" + event.getTime() + ")");
+        holder.tvLocation.setText(event.getLocation());
         holder.tvDescription.setText(event.getDescription());
 
         String status = EventUtils.getStatusLabel(event, active);
@@ -81,15 +83,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         } else {
             statusColor = R.color.weather_turquoise;
         }
-        holder.tvStatus.setBackgroundColor(ContextCompat.getColor(context, statusColor));
+        holder.tvStatus.setBackgroundTintList(ContextCompat.getColorStateList(context, statusColor));
         holder.tvPlaces.setText(context.getString(R.string.label_available_places) + " : " + available
                 + " / " + event.getCapacity());
 
-        if (event.isFavorite()) {
-            holder.btnFavoriteIcon.setImageResource(android.R.drawable.btn_star_big_on);
-        } else {
-            holder.btnFavoriteIcon.setImageResource(android.R.drawable.btn_star_big_off);
-        }
+        holder.btnFavoriteIcon.setImageResource(event.isFavorite()
+                ? R.drawable.ic_star_filled
+                : R.drawable.ic_star_outline);
 
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
@@ -117,6 +117,24 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     @Override
     public int getItemCount() {
         return eventList != null ? eventList.size() : 0;
+    }
+
+    private int categoryColor(String category) {
+        if (category == null) return R.color.action_blue;
+        switch (category) {
+            case "Culture":
+                return R.color.warning_orange;
+            case "Sport":
+                return R.color.weather_turquoise;
+            case "Solidarité":
+                return R.color.error_red;
+            case "Orientation":
+                return R.color.navy_soft;
+            case "Environnement":
+                return R.color.green;
+            default:
+                return R.color.action_blue;
+        }
     }
 
     public static class EventViewHolder extends RecyclerView.ViewHolder {

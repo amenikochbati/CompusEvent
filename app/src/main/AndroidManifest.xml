@@ -25,6 +25,18 @@
         </activity>
 
         <activity
+            android:name=".LoginActivity"
+            android:exported="false"
+            android:label="Connexion"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false"
+            android:label="Inscription"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".EventsActivity"
             android:exported="false"
             android:label="Événements"
@@ -46,6 +58,12 @@
             android:name=".AboutActivity"
             android:exported="false"
             android:label="À propos"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".AddEditEventActivity"
+            android:exported="false"
+            android:label="Gestion Événement"
             android:screenOrientation="portrait" />
 
     </application>

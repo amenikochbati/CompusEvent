@@ -2,13 +2,40 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Palette principale (inspirée des maquettes What'sHappen) -->
     <color name="primary_blue">#142B4A</color>
+    <color name="navy">#0F2038</color>
+    <color name="navy_light">#1E4A7C</color>
+    <color name="navy_soft">#2A5C8F</color>
     <color name="action_blue">#2563EB</color>
+    <color name="action_blue_dark">#1D4ED8</color>
+    <color name="blue_soft">#EAF1FF</color>
     <color name="weather_turquoise">#16B8A6</color>
+    <color name="teal_dark">#0E9385</color>
+    <color name="teal_soft">#E5FBF7</color>
+
+    <!-- Fonds et surfaces -->
     <color name="bg_gray">#F5F7FA</color>
-    <color name="warning_orange">#F59E0B</color>
-    <color name="error_red">#D9485F</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="surface_alt">#F8FAFD</color>
     <color name="card_bg">#FFFFFF</color>
+    <color name="line">#E3E9F1</color>
+    <color name="line_strong">#CBD5E1</color>
+
+    <!-- Texte -->
     <color name="text_dark">#1F2937</color>
+    <color name="text_primary">#152238</color>
     <color name="text_muted">#6B7280</color>
+    <color name="text_secondary">#5B6B80</color>
+
+    <!-- États -->
+    <color name="warning_orange">#F59E0B</color>
+    <color name="orange_soft">#FFF4E0</color>
+    <color name="error_red">#D9485F</color>
+    <color name="red_soft">#FDECEF</color>
+    <color name="green">#059669</color>
+    <color name="green_soft">#E7F7F1</color>
+    <color name="overlay_white">#1AFFFFFF</color>
+    <color name="overlay_white_strong">#33FFFFFF</color>
 </resources>
