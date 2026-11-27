@@ -185,7 +185,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/btn_my_events"
+                android:id="@+id/btn_event_details"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="8dp"
@@ -200,54 +200,16 @@
                 <ImageView
                     android:layout_width="22dp"
                     android:layout_height="22dp"
-                    android:contentDescription="@string/btn_my_events"
-                    android:src="@drawable/ic_star"
-                    android:tint="@color/weather_turquoise" />
+                    android:contentDescription="Détails d'un événement"
+                    android:src="@drawable/ic_calendar"
+                    android:tint="@color/action_blue" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="14dp"
                     android:layout_weight="1"
-                    android:text="Mes événements"
-                    android:textColor="@color/text_primary"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:src="@drawable/ic_arrow_forward"
-                    android:tint="@color/text_muted" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/btn_about"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/bg_nav_row"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="14dp">
-
-                <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:contentDescription="@string/btn_about"
-                    android:src="@drawable/ic_info"
-                    android:tint="@color/navy_soft" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:layout_weight="1"
-                    android:text="À propos"
+                    android:text="Détails d'un événement"
                     android:textColor="@color/text_primary"
                     android:textSize="14sp"
                     android:textStyle="bold" />

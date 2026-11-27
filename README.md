@@ -12,11 +12,11 @@ d'annuler une inscription, tout en affichant la météo du lieu via une API exte
 
 ## Fonctionnalités
 
-- Écran d'accueil avec les événements à venir et navigation rapide.
+- Écran d'accueil avec le nom **Whats'Happen**, le bouton **Se connecter**, l'accès direct à la fiche détaillée et aux événements à venir.
 - Liste complète avec recherche **titre / description / lieu** et filtres par catégorie.
 - Option « Afficher les événements passés » pour consulter l'historique.
 - Fiche détaillée : date française, lieu, description, capacité, statut et places restantes.
-- Favoris (étoile) et espace « Mes événements » avec deux onglets : favoris / inscriptions.
+- Favoris (étoile) et inscriptions gérés directement depuis la fiche détaillée.
 - Inscription et annulation avec **contrôle des doublons, de la capacité et de la date**.
 - Historique des inscriptions : une annulation conserve la ligne et libère la place.
 - Météo Open-Meteo non bloquante, avec cache 45 min et timeout 5 s.
@@ -39,11 +39,9 @@ d'annuler une inscription, tout en affichant la météo du lieu via une API exte
 
 ```
 app/src/main/java/com/example/compusevent/
-├── MainActivity.java          Accueil et événements à venir
+├── MainActivity.java          Accueil : nom de l'app, connexion et accès à la fiche
 ├── EventsActivity.java        Liste, recherche et filtres
-├── EventDetailActivity.java   Fiche, inscription et météo
-├── MyEventsActivity.java      Favoris et historique des inscriptions
-├── AboutActivity.java         Présentation du projet
+├── EventDetailActivity.java   Fiche détaillée, inscription et météo
 ├── EventAdapter.java          Cartes RecyclerView + statuts
 ├── Event.java                 Modèle métier
 ├── EventUtils.java            Règles pures testables (dates, statuts, places)

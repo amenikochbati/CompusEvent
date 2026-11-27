@@ -51,18 +51,6 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".MyEventsActivity"
-            android:exported="false"
-            android:label="Mes Événements"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".AboutActivity"
-            android:exported="false"
-            android:label="À propos"
-            android:screenOrientation="portrait" />
-
-        <activity
             android:name=".AddEditEventActivity"
             android:exported="false"
             android:label="Gestion Événement"

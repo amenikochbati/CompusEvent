@@ -39,8 +39,7 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.OnEv
         btnAdminCreateEvent = findViewById(R.id.btn_admin_create_event);
 
         View btnExplore = findViewById(R.id.btn_explore);
-        View btnMyEvents = findViewById(R.id.btn_my_events);
-        View btnAbout = findViewById(R.id.btn_about);
+        View btnEventDetails = findViewById(R.id.btn_event_details);
         View btnSeeAll = findViewById(R.id.btn_see_all);
         rvUpcomingEvents = findViewById(R.id.rv_upcoming_events);
         tvEmptyUpcoming = findViewById(R.id.tv_empty_upcoming);
@@ -49,8 +48,7 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.OnEv
         rvUpcomingEvents.setLayoutManager(new LinearLayoutManager(this));
 
         btnExplore.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, EventsActivity.class)));
-        btnMyEvents.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, MyEventsActivity.class)));
-        btnAbout.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, AboutActivity.class)));
+        btnEventDetails.setOnClickListener(v -> openFirstEventDetails());
         btnSeeAll.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, EventsActivity.class)));
 
         btnAdminCreateEvent.setOnClickListener(v -> {
@@ -108,6 +106,18 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.OnEv
         } else {
             adapter.updateEvents(upcomingEvents);
         }
+    }
+
+    /** Ouvre directement la fiche détaillée du prochain événement depuis l'accueil. */
+    private void openFirstEventDetails() {
+        List<Event> events = dbHelper.getUpcomingEvents(1);
+        if (events.isEmpty()) {
+            Toast.makeText(this, R.string.no_upcoming_events, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Intent intent = new Intent(this, EventDetailActivity.class);
+        intent.putExtra("EVENT_ID", events.get(0).getId());
+        startActivity(intent);
     }
 
     @Override
