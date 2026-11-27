@@ -57,6 +57,18 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
 
+        <activity
+            android:name=".UserSpaceActivity"
+            android:exported="false"
+            android:label="Espace Étudiant"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".AdminSpaceActivity"
+            android:exported="false"
+            android:label="Espace Administrateur"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

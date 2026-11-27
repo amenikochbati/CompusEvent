@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Locale;
 
 /** Carte d'événement : informations, statut métier et accès rapide aux favoris. */
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
@@ -60,6 +61,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         holder.tvDate.setText(EventUtils.formatFrenchDate(event.getDate()) + " (" + event.getTime() + ")");
         holder.tvLocation.setText(event.getLocation());
         holder.tvDescription.setText(event.getDescription());
+        bindWeather(holder, event);
 
         String status = EventUtils.getStatusLabel(event, active);
         // L'historique affiche l'état de l'inscription plutôt que l'état de l'événement.
@@ -119,6 +121,45 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         return eventList != null ? eventList.size() : 0;
     }
 
+    /** Météo Open-Meteo de la liste : affichée seulement pour les dates couvertes par l'API. */
+    private void bindWeather(EventViewHolder holder, Event event) {
+        holder.tvItemWeather.setTag(event.getId());
+        holder.tvItemWeather.setVisibility(View.GONE);
+        holder.tvItemWeather.setText("");
+
+        if (EventUtils.isPast(event) || (event.getLatitude() == 0 && event.getLongitude() == 0)) {
+            return;
+        }
+        int days = EventUtils.daysUntil(event);
+        if (days < 0 || days > EventUtils.MAX_FORECAST_DAYS) {
+            return;
+        }
+
+        WeatherService.fetchWeather(event.getLatitude(), event.getLongitude(),
+                new WeatherService.WeatherCallback() {
+                    @Override
+                    public void onSuccess(WeatherData weatherData) {
+                        if (!isSameEvent(holder, event)) return;
+                        holder.tvItemWeather.setText(String.format(Locale.getDefault(), "%.0f°C · %s",
+                                weatherData.getTemperature(), weatherData.getShortDescription()));
+                        holder.tvItemWeather.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+                        if (!isSameEvent(holder, event)) return;
+                        holder.tvItemWeather.setText("Météo indisponible");
+                        holder.tvItemWeather.setVisibility(View.VISIBLE);
+                    }
+                });
+    }
+
+    /** Évite d'appliquer une réponse API à une carte recyclée pour un autre événement. */
+    private boolean isSameEvent(EventViewHolder holder, Event event) {
+        Object tag = holder.tvItemWeather.getTag();
+        return tag instanceof Integer && (Integer) tag == event.getId();
+    }
+
     private int categoryColor(String category) {
         if (category == null) return R.color.action_blue;
         switch (category) {
@@ -138,7 +179,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     }
 
     public static class EventViewHolder extends RecyclerView.ViewHolder {
-        TextView tvCategory, tvTitle, tvDate, tvLocation, tvDescription, tvStatus, tvPlaces;
+        TextView tvCategory, tvTitle, tvDate, tvLocation, tvDescription, tvStatus, tvPlaces, tvItemWeather;
         ImageView btnFavoriteIcon;
 
         public EventViewHolder(@NonNull View itemView) {
@@ -150,6 +191,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             tvDescription = itemView.findViewById(R.id.tv_description);
             tvStatus = itemView.findViewById(R.id.tv_status);
             tvPlaces = itemView.findViewById(R.id.tv_places);
+            tvItemWeather = itemView.findViewById(R.id.tv_item_weather);
             btnFavoriteIcon = itemView.findViewById(R.id.btn_favorite_icon);
         }
     }

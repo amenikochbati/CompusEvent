@@ -21,8 +21,9 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.OnEv
     private SessionManager sessionManager;
 
     private RecyclerView rvUpcomingEvents;
-    private TextView tvEmptyUpcoming, tvUserGreeting, tvUserRoleBadge;
+    private TextView tvEmptyUpcoming, tvUserGreeting, tvUserRoleBadge, tvMySpaceLabel;
     private MaterialButton btnAuthAction, btnAdminCreateEvent;
+    private View btnMySpace;
     private EventAdapter adapter;
 
     @Override
@@ -35,8 +36,10 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.OnEv
 
         tvUserGreeting = findViewById(R.id.tv_user_greeting);
         tvUserRoleBadge = findViewById(R.id.tv_user_role_badge);
+        tvMySpaceLabel = findViewById(R.id.tv_my_space_label);
         btnAuthAction = findViewById(R.id.btn_auth_action);
         btnAdminCreateEvent = findViewById(R.id.btn_admin_create_event);
+        btnMySpace = findViewById(R.id.btn_my_space);
 
         View btnExplore = findViewById(R.id.btn_explore);
         View btnEventDetails = findViewById(R.id.btn_event_details);
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.OnEv
         btnExplore.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, EventsActivity.class)));
         btnEventDetails.setOnClickListener(v -> openFirstEventDetails());
         btnSeeAll.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, EventsActivity.class)));
+        btnMySpace.setOnClickListener(v -> openMySpace());
 
         btnAdminCreateEvent.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, AddEditEventActivity.class);
@@ -78,20 +82,30 @@ public class MainActivity extends AppCompatActivity implements EventAdapter.OnEv
         if (sessionManager.isLoggedIn()) {
             User user = sessionManager.getUser();
             tvUserGreeting.setText("Bonjour, " + user.getName());
+            btnMySpace.setVisibility(View.VISIBLE);
             if (user.isAdmin()) {
                 tvUserRoleBadge.setText("Mode Administrateur 👑");
+                tvMySpaceLabel.setText("Espace Administrateur");
                 btnAdminCreateEvent.setVisibility(View.VISIBLE);
             } else {
                 tvUserRoleBadge.setText("Mode Étudiant (User)");
+                tvMySpaceLabel.setText("Espace Étudiant");
                 btnAdminCreateEvent.setVisibility(View.GONE);
             }
             btnAuthAction.setText("Déconnexion");
         } else {
             tvUserGreeting.setText("Bonjour, Invité");
             tvUserRoleBadge.setText("Mode Invité");
+            btnMySpace.setVisibility(View.GONE);
             btnAdminCreateEvent.setVisibility(View.GONE);
             btnAuthAction.setText("Se connecter");
         }
+    }
+
+    /** Ouvre l'espace correspondant au rôle de la session courante. */
+    private void openMySpace() {
+        Class<?> target = sessionManager.isAdmin() ? AdminSpaceActivity.class : UserSpaceActivity.class;
+        startActivity(new Intent(this, target));
     }
 
     private void loadUpcomingEvents() {

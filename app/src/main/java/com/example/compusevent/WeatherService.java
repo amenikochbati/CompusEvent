@@ -2,6 +2,7 @@ package com.example.compusevent;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -73,8 +74,9 @@ public class WeatherService {
                         "https://api.open-meteo.com/v1/forecast?latitude=%.4f&longitude=%.4f" +
                                 "&current=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m" +
                                 "&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max" +
-                                "&forecast_days=%d&timezone=Africa%2FTunis",
-                        latitude, longitude, EventUtils.MAX_FORECAST_DAYS);
+                                "&forecast_days=%d",
+                        latitude, longitude, EventUtils.MAX_FORECAST_DAYS)
+                        + "&timezone=Africa%2FTunis";
 
                 connection = (HttpURLConnection) new URL(urlString).openConnection();
                 connection.setRequestMethod("GET");
@@ -102,6 +104,7 @@ public class WeatherService {
                     deliverError(callback, "Erreur météo (code " + responseCode + ").");
                 }
             } catch (Exception e) {
+                Log.e("WeatherService", "Échec appel Open-Meteo", e);
                 // Cache expiré mais présent : on l'utilise plutôt que de bloquer l'écran.
                 synchronized (cache) {
                     CachedWeather cached = cache.get(key);
