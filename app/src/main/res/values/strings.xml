@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">CampusEvents Mobile</string>
+    <string name="app_name">Whats\'Happen</string>
     <string name="app_tagline">La vie du campus, à portée de clic.</string>
 
     <!-- Navigation & Buttons -->
@@ -22,7 +22,7 @@
     <string name="title_favorites">Mes Favoris</string>
     <string name="title_participations">Mes Participations</string>
     <string name="title_my_events">Mes Événements et Favoris</string>
-    <string name="title_about">À propos de CampusEvents</string>
+    <string name="title_about">À propos de Whats\'Happen</string>
     <string name="search_hint">Titre, description ou lieu…</string>
     <string name="category_all">Toutes</string>
     <string name="show_past_events">Afficher les événements passés</string>

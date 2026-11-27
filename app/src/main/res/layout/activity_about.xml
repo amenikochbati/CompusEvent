@@ -51,7 +51,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:lineSpacingExtra="3dp"
-                        android:text="CampusEvents Mobile est une application Android destinée aux étudiants pour découvrir et suivre les activités du campus : ateliers, conférences, compétitions sportives, journées culturelles et solidaires."
+                        android:text="Whats'Happen est une application Android destinée aux étudiants pour découvrir et suivre les activités du campus : ateliers, conférences, compétitions sportives, journées culturelles et solidaires."
                         android:textColor="@color/text_secondary"
                         android:textSize="13sp" />
 

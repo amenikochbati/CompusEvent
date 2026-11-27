@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Thème CampusEvents : navy + bleu électrique + turquoise -->
+    <!-- Thème Whats'Happen : navy + bleu électrique + turquoise -->
     <style name="Base.Theme.CompusEvent" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/action_blue</item>
         <item name="colorOnPrimary">@color/white</item>

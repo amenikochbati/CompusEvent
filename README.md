@@ -1,12 +1,12 @@
-# CampusEvents Mobile
+# Whats'Happen
 
 Application Android **Java + XML** de découverte et de suivi des événements universitaires.
-Adaptation mobile du cahier des charges CampusEvents : « La vie du campus, à portée de clic ».
+« La vie du campus, à portée de clic ».
 
 ## Problème résolu
 
 Les annonces d'activités étudiantes sont dispersées et il est difficile de savoir quelles places
-restent disponibles ou si un événement est déjà terminé. CampusEvents Mobile centralise les
+restent disponibles ou si un événement est déjà terminé. Whats'Happen centralise les
 événements du campus, permet de les filtrer, de les mettre en favoris, de s'y inscrire et
 d'annuler une inscription, tout en affichant la météo du lieu via une API externe.
 

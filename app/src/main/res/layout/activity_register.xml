@@ -50,7 +50,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Inscription à CampusEvents Mobile"
+                        android:text="Inscription à Whats'Happen"
                         android:textColor="@color/text_muted"
                         android:textSize="12sp" />
 
