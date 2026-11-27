@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:textColor="#C7D6EA"
+            android:textColor="#FFD9C9"
             android:textSize="11sp" />
 
     </LinearLayout>

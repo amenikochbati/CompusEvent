@@ -144,7 +144,7 @@
                 app:cardBackgroundColor="@color/blue_soft"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="0dp"
-                app:strokeColor="#BFDBFE"
+                app:strokeColor="#FFC9B2"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
