@@ -3,38 +3,41 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- Palette Whats'Happen : corail/orange, crème et brun chaud -->
-    <color name="primary_blue">#6E2E22</color>
-    <color name="navy">#5A241C</color>
-    <color name="navy_light">#8E3B2B</color>
-    <color name="navy_soft">#B85C43</color>
-    <color name="action_blue">#EE6A45</color>
-    <color name="action_blue_dark">#D6502E</color>
-    <color name="blue_soft">#FFE7DB</color>
-    <color name="weather_turquoise">#F09A3E</color>
-    <color name="teal_dark">#C9761F</color>
-    <color name="teal_soft">#FFF1DD</color>
+    <!-- Identité Whats'Happen : brun encre, corail et ambre -->
+    <color name="primary_blue">#5C2A21</color>
+    <color name="navy">#3F201A</color>
+    <color name="navy_light">#7A3427</color>
+    <color name="navy_soft">#A84733</color>
+    <color name="action_blue">#E05C36</color>
+    <color name="action_blue_dark">#BC4324</color>
+    <color name="blue_soft">#FFE9DF</color>
+    <color name="weather_turquoise">#E39435</color>
+    <color name="teal_dark">#B8731F</color>
+    <color name="teal_soft">#FFF2DF</color>
+    <color name="hero_text">#FFE3D3</color>
 
     <!-- Fonds et surfaces -->
-    <color name="bg_gray">#FFF8F4</color>
+    <color name="bg_gray">#FBF7F4</color>
     <color name="surface">#FFFFFF</color>
-    <color name="surface_alt">#FFF3EC</color>
+    <color name="surface_alt">#FFF4EE</color>
     <color name="card_bg">#FFFFFF</color>
-    <color name="line">#F0DCD1</color>
-    <color name="line_strong">#E3C0AE</color>
+    <color name="line">#EEDDD3</color>
+    <color name="line_strong">#DFC2B3</color>
+    <color name="icon_tile">#FFE9DF</color>
+    <color name="weather_soft">#FFF1DC</color>
 
     <!-- Texte -->
-    <color name="text_dark">#45261D</color>
-    <color name="text_primary">#4A2C23</color>
-    <color name="text_muted">#98766A</color>
-    <color name="text_secondary">#7A594D</color>
+    <color name="text_dark">#33221C</color>
+    <color name="text_primary">#3A261F</color>
+    <color name="text_muted">#94796F</color>
+    <color name="text_secondary">#71554B</color>
 
     <!-- États -->
-    <color name="warning_orange">#E9A23B</color>
+    <color name="warning_orange">#D98B2B</color>
     <color name="orange_soft">#FFF0DF</color>
-    <color name="error_red">#C74436</color>
+    <color name="error_red">#B93D33</color>
     <color name="red_soft">#FBE9E5</color>
-    <color name="green">#2E7D5B</color>
+    <color name="green">#2F7A5A</color>
     <color name="green_soft">#E8F4EE</color>
     <color name="overlay_white">#1AFFFFFF</color>
     <color name="overlay_white_strong">#33FFFFFF</color>

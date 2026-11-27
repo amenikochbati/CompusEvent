@@ -4,15 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="12dp"
-    android:layout_marginTop="8dp"
+    android:layout_marginTop="10dp"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground"
-    app:cardBackgroundColor="@color/card_bg"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="0dp"
-    app:strokeColor="@color/line"
-    app:strokeWidth="1dp">
+    style="@style/Campus.Card">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -49,8 +45,9 @@
                 android:layout_height="36dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/btn_favorite"
-                android:padding="6dp"
-                android:src="@drawable/ic_star_outline" />
+                android:padding="7dp"
+                android:src="@drawable/ic_star_outline"
+                android:tint="@color/action_blue_dark" />
 
         </LinearLayout>
 
@@ -58,7 +55,7 @@
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="6dp"
             android:text="Titre de l'événement"
             android:textColor="@color/text_primary"
             android:textSize="16sp"
@@ -67,7 +64,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="12dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -85,8 +82,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:text="samedi 28 novembre 2026 (09:00)"
-                android:textColor="@color/text_secondary"
-                android:textSize="12sp" />
+                android:textAppearance="@style/Campus.Text.Meta" />
 
         </LinearLayout>
 
@@ -111,8 +107,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:text="Amphi Informatique - Tunis"
-                android:textColor="@color/text_secondary"
-                android:textSize="12sp" />
+                android:textAppearance="@style/Campus.Text.Meta" />
 
         </LinearLayout>
 
@@ -128,7 +123,7 @@
                 android:layout_height="16dp"
                 android:contentDescription="Météo"
                 android:src="@drawable/ic_sun"
-                android:tint="@color/weather_turquoise" />
+                android:tint="@color/teal_dark" />
 
             <TextView
                 android:id="@+id/tv_item_weather"
@@ -137,8 +132,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:text="Météo indisponible"
-                android:textColor="@color/text_muted"
-                android:textSize="12sp"
+                android:textAppearance="@style/Campus.Text.Meta"
                 android:visibility="gone" />
 
         </LinearLayout>
@@ -152,8 +146,7 @@
             android:lineSpacingExtra="2dp"
             android:maxLines="2"
             android:text="Description courte..."
-            android:textColor="@color/text_muted"
-            android:textSize="12sp" />
+            android:textAppearance="@style/Campus.Text.Caption" />
 
         <View
             android:layout_width="match_parent"
@@ -188,8 +181,7 @@
                 android:layout_weight="1"
                 android:gravity="end"
                 android:text="Places disponibles : 150 / 150"
-                android:textColor="@color/text_muted"
-                android:textSize="11sp" />
+                android:textAppearance="@style/Campus.Text.Caption" />
 
         </LinearLayout>
 

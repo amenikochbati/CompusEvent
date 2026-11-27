@@ -6,12 +6,12 @@
     android:background="@color/bg_gray"
     android:orientation="vertical">
 
-    <!-- En-tête utilisateur -->
+    <!-- En-tête de session -->
     <LinearLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/navy"
+        android:background="@drawable/bg_hero_gradient"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingHorizontal="16dp"
@@ -22,9 +22,9 @@
             android:layout_height="40dp"
             android:background="@drawable/bg_avatar"
             android:gravity="center"
-            android:text="C"
+            android:text="W"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -37,40 +37,41 @@
 
             <TextView
                 android:id="@+id/tv_user_greeting"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Bonjour, Invité"
                 android:textColor="@color/white"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_user_role_badge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/bg_role_chip"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp"
                 android:text="Mode Invité"
-                android:textColor="#FFD9C9"
-                android:textSize="11sp" />
+                android:textColor="@color/hero_text"
+                android:textSize="10sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_auth_action"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
+            style="@style/Campus.Button.Quiet"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="0dp"
+            android:layout_height="34dp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:text="Se connecter"
-            android:textColor="@color/weather_turquoise"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textColor="@color/weather_turquoise" />
 
     </LinearLayout>
 
-    <!-- Tout le contenu est défilable, y compris depuis l'en-tête -->
+    <!-- Contenu défilable, y compris depuis l'en-tête -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_target"
         android:layout_width="match_parent"
@@ -84,54 +85,49 @@
             android:orientation="vertical"
             android:paddingHorizontal="16dp"
             android:paddingTop="16dp"
-            android:paddingBottom="24dp">
+            android:paddingBottom="28dp">
 
             <com.google.android.material.card.MaterialCardView
+                style="@style/Campus.Card"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/surface"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:strokeColor="@color/line"
-                app:strokeWidth="1dp">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Whats'Happen"
-                        android:textColor="@color/text_primary"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:text="CAMPUS EVENTS"
+                        android:textAppearance="@style/Campus.Text.Overline" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="6dp"
+                        android:text="Whats'Happen"
+                        android:textAppearance="@style/Campus.Text.Hero" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
                         android:text="@string/app_tagline"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="13sp" />
+                        android:textAppearance="@style/Campus.Text.Body"
+                        android:lineSpacingExtra="2dp" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_admin_create_event"
+                        style="@style/Campus.Button.Primary"
                         android:layout_width="match_parent"
-                        android:layout_height="44dp"
-                        android:layout_marginTop="14dp"
-                        android:backgroundTint="@color/green"
+                        android:layout_height="46dp"
+                        android:layout_marginTop="16dp"
                         android:text="Créer un événement"
-                        android:textColor="@color/white"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
                         android:visibility="gone"
-                        app:cornerRadius="12dp"
-                        app:icon="@drawable/ic_plus"
-                        app:iconGravity="textStart"
-                        app:iconTint="@color/white" />
+                        app:icon="@drawable/ic_plus" />
 
                 </LinearLayout>
 
@@ -140,41 +136,55 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginBottom="10dp"
                 android:text="Accès rapide"
-                android:textColor="@color/text_primary"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textAppearance="@style/Campus.Text.Section" />
 
             <LinearLayout
                 android:id="@+id/btn_explore"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="64dp"
                 android:background="@drawable/bg_nav_row"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingHorizontal="14dp">
+                android:paddingHorizontal="12dp">
 
                 <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_icon_tile"
                     android:contentDescription="@string/btn_explore"
+                    android:padding="10dp"
                     android:src="@drawable/ic_search"
-                    android:tint="@color/action_blue" />
+                    android:tint="@color/action_blue_dark" />
 
-                <TextView
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
+                    android:layout_marginStart="12dp"
                     android:layout_weight="1"
-                    android:text="Explorer les événements"
-                    android:textColor="@color/text_primary"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Explorer les événements"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Rechercher, filtrer et découvrir"
+                        android:textAppearance="@style/Campus.Text.Caption" />
+
+                </LinearLayout>
 
                 <ImageView
                     android:layout_width="18dp"
@@ -187,7 +197,7 @@
             <LinearLayout
                 android:id="@+id/btn_event_details"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="64dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_nav_row"
                 android:clickable="true"
@@ -195,24 +205,40 @@
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingHorizontal="14dp">
+                android:paddingHorizontal="12dp">
 
                 <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_icon_tile_amber"
                     android:contentDescription="Détails d'un événement"
+                    android:padding="10dp"
                     android:src="@drawable/ic_calendar"
-                    android:tint="@color/action_blue" />
+                    android:tint="@color/teal_dark" />
 
-                <TextView
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
+                    android:layout_marginStart="12dp"
                     android:layout_weight="1"
-                    android:text="Détails d'un événement"
-                    android:textColor="@color/text_primary"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Détails d'un événement"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Programme, favoris et météo"
+                        android:textAppearance="@style/Campus.Text.Caption" />
+
+                </LinearLayout>
 
                 <ImageView
                     android:layout_width="18dp"
@@ -225,7 +251,7 @@
             <LinearLayout
                 android:id="@+id/btn_my_space"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="64dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_nav_card_accent"
                 android:clickable="true"
@@ -233,40 +259,56 @@
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingHorizontal="14dp"
+                android:paddingHorizontal="12dp"
                 android:visibility="gone">
 
                 <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_icon_tile"
                     android:contentDescription="Mon espace"
+                    android:padding="10dp"
                     android:src="@drawable/ic_person"
-                    android:tint="@color/action_blue" />
+                    android:tint="@color/action_blue_dark" />
 
-                <TextView
-                    android:id="@+id/tv_my_space_label"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
+                    android:layout_marginStart="12dp"
                     android:layout_weight="1"
-                    android:text="Mon espace"
-                    android:textColor="@color/text_primary"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_my_space_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Mon espace"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Accès à ton espace selon ton rôle"
+                        android:textAppearance="@style/Campus.Text.Caption" />
+
+                </LinearLayout>
 
                 <ImageView
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:src="@drawable/ic_arrow_forward"
-                    android:tint="@color/action_blue" />
+                    android:tint="@color/action_blue_dark" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -275,22 +317,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/title_upcoming_events"
-                    android:textColor="@color/text_primary"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:textAppearance="@style/Campus.Text.Section" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_see_all"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    style="@style/Campus.Button.Quiet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minWidth="0dp"
-                    android:paddingStart="6dp"
-                    android:paddingEnd="6dp"
-                    android:text="Voir tout"
-                    android:textColor="@color/action_blue"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
+                    android:text="Voir tout" />
 
             </LinearLayout>
 
@@ -313,8 +347,7 @@
                     android:layout_gravity="center"
                     android:padding="24dp"
                     android:text="@string/no_upcoming_events"
-                    android:textColor="@color/text_muted"
-                    android:textSize="14sp"
+                    android:textAppearance="@style/Campus.Text.Body"
                     android:visibility="gone" />
 
             </FrameLayout>

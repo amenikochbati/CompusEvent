@@ -30,21 +30,29 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingHorizontal="16dp"
-                    android:paddingTop="14dp">
+                    android:paddingTop="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Découvrir"
+                        android:textAppearance="@style/Campus.Text.Overline" />
 
                     <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="46dp"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="8dp"
                         android:background="@drawable/bg_search_round">
 
                         <EditText
                             android:id="@+id/et_search"
-                            style="@style/CampusSearchField"
+                            style="@style/Campus.SearchField"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@null"
                             android:drawableStart="@drawable/ic_search"
-                            android:drawablePadding="10dp"
+                            android:drawablePadding="12dp"
+                            android:drawableTint="@color/action_blue_dark"
                             android:hint="Rechercher un événement, un club…"
                             android:inputType="text"
                             android:paddingEnd="44dp" />
@@ -54,10 +62,11 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_gravity="center_vertical|end"
-                            android:layout_marginEnd="3dp"
+                            android:layout_marginEnd="4dp"
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:contentDescription="Effacer la recherche"
                             android:src="@drawable/ic_close"
+                            android:tint="@color/text_muted"
                             android:visibility="gone" />
 
                     </FrameLayout>
@@ -65,7 +74,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="16dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -74,28 +83,20 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Catégories"
-                            android:textColor="@color/text_primary"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:textAppearance="@style/Campus.Text.Section" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_filter"
-                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            style="@style/Campus.Button.Secondary"
                             android:layout_width="wrap_content"
-                            android:layout_height="36dp"
-                            android:insetTop="0dp"
-                            android:insetBottom="0dp"
+                            android:layout_height="38dp"
                             android:minWidth="0dp"
                             android:paddingStart="12dp"
                             android:paddingEnd="12dp"
                             android:text="@string/btn_filter"
-                            android:textColor="@color/action_blue"
                             android:textSize="11sp"
-                            app:cornerRadius="18dp"
-                            app:icon="@drawable/ic_filter"
-                            app:iconTint="@color/action_blue"
-                            app:strokeColor="@color/action_blue"
-                            app:strokeWidth="1dp" />
+                            app:cornerRadius="19dp"
+                            app:icon="@drawable/ic_filter" />
 
                         <com.google.android.material.checkbox.MaterialCheckBox
                             android:id="@+id/cb_show_past"
@@ -110,7 +111,7 @@
                 <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="6dp"
                     android:clipToPadding="false"
                     android:paddingHorizontal="12dp"
                     android:paddingVertical="8dp"
@@ -126,92 +127,66 @@
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chip_all"
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            style="@style/Campus.Chip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:checked="true"
-                            android:text="@string/category_all"
-                            android:textColor="@color/chip_text_selector"
-                            app:checkedIconVisible="false"
-                            app:chipBackgroundColor="@color/chip_bg_selector"
-                            app:chipStrokeColor="@color/chip_stroke_selector"
-                            app:chipStrokeWidth="1dp" />
+                            android:text="@string/category_all" />
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chip_tech"
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            style="@style/Campus.Chip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/cat_tech"
-                            android:textColor="@color/chip_text_selector"
-                            app:checkedIconVisible="false"
-                            app:chipBackgroundColor="@color/chip_bg_selector"
-                            app:chipStrokeColor="@color/chip_stroke_selector"
-                            app:chipStrokeWidth="1dp" />
+                            android:text="@string/cat_tech" />
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chip_culture"
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            style="@style/Campus.Chip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/cat_culture"
-                            android:textColor="@color/chip_text_selector"
-                            app:checkedIconVisible="false"
-                            app:chipBackgroundColor="@color/chip_bg_selector"
-                            app:chipStrokeColor="@color/chip_stroke_selector"
-                            app:chipStrokeWidth="1dp" />
+                            android:text="@string/cat_culture" />
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chip_sport"
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            style="@style/Campus.Chip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/cat_sport"
-                            android:textColor="@color/chip_text_selector"
-                            app:checkedIconVisible="false"
-                            app:chipBackgroundColor="@color/chip_bg_selector"
-                            app:chipStrokeColor="@color/chip_stroke_selector"
-                            app:chipStrokeWidth="1dp" />
+                            android:text="@string/cat_sport" />
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chip_solidarity"
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            style="@style/Campus.Chip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/cat_solidarity"
-                            android:textColor="@color/chip_text_selector"
-                            app:checkedIconVisible="false"
-                            app:chipBackgroundColor="@color/chip_bg_selector"
-                            app:chipStrokeColor="@color/chip_stroke_selector"
-                            app:chipStrokeWidth="1dp" />
+                            android:text="@string/cat_solidarity" />
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chip_orientation"
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            style="@style/Campus.Chip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/cat_orientation"
-                            android:textColor="@color/chip_text_selector"
-                            app:checkedIconVisible="false"
-                            app:chipBackgroundColor="@color/chip_bg_selector"
-                            app:chipStrokeColor="@color/chip_stroke_selector"
-                            app:chipStrokeWidth="1dp" />
+                            android:text="@string/cat_orientation" />
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chip_environment"
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            style="@style/Campus.Chip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/cat_environment"
-                            android:textColor="@color/chip_text_selector"
-                            app:checkedIconVisible="false"
-                            app:chipBackgroundColor="@color/chip_bg_selector"
-                            app:chipStrokeColor="@color/chip_stroke_selector"
-                            app:chipStrokeWidth="1dp" />
+                            android:text="@string/cat_environment" />
 
                     </com.google.android.material.chip.ChipGroup>
 
                 </HorizontalScrollView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:text="@string/title_all_events"
+                    android:textAppearance="@style/Campus.Text.Section" />
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -232,8 +207,7 @@
                         android:layout_gravity="center"
                         android:padding="24dp"
                         android:text="@string/no_events_found"
-                        android:textColor="@color/text_muted"
-                        android:textSize="14sp"
+                        android:textAppearance="@style/Campus.Text.Body"
                         android:visibility="gone" />
 
                 </FrameLayout>
