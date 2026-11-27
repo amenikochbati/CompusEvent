@@ -116,38 +116,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="Type de compte"
+                        android:text="Type de compte : Étudiant"
                         android:textColor="@color/text_primary"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
-                    <RadioGroup
-                        android:id="@+id/rg_reg_role"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/rb_role_user"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:checked="true"
-                            android:text="Étudiant"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="13sp" />
-
-                        <RadioButton
-                            android:id="@+id/rb_role_admin"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Administrateur"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="13sp" />
-
-                    </RadioGroup>
+                        android:text="L'inscription est réservée aux étudiants. Les comptes administrateurs sont attribués par l'établissement."
+                        android:textColor="@color/text_muted"
+                        android:textSize="12sp" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_register"

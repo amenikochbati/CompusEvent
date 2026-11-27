@@ -6,6 +6,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class UserSpaceActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_user_space);
         NavigationHelper.setup(this, "Espace Étudiant", "Votre rôle : Étudiant (USER)");
+        findViewById(R.id.app_bar).setBackgroundColor(ContextCompat.getColor(this, R.color.action_blue_dark));
 
         dbHelper = new DatabaseHelper(this);
         User user = sessionManager.getUser();

@@ -228,13 +228,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // --- AUTHENTIFICATION (USER & ADMIN) ---
 
-    public boolean registerUser(String name, String email, String password, String role) {
+    public boolean registerUser(String name, String email, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_USER_NAME, name);
         values.put(COLUMN_USER_EMAIL, email.trim().toLowerCase(Locale.ROOT));
         values.put(COLUMN_USER_PASSWORD, password);
-        values.put(COLUMN_USER_ROLE, role != null ? role : User.ROLE_USER);
+        // Sécurité : aucune inscription publique ne peut créer un administrateur.
+        values.put(COLUMN_USER_ROLE, User.ROLE_USER);
         values.put(COLUMN_CREATED_AT, now());
         long id = db.insertWithOnConflict(TABLE_USERS, null, values, SQLiteDatabase.CONFLICT_IGNORE);
         return id != -1;

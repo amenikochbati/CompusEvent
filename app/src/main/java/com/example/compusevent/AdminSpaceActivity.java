@@ -6,6 +6,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class AdminSpaceActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_admin_space);
         NavigationHelper.setup(this, "Espace Administrateur", "Votre rôle : Administrateur (ADMIN)");
+        findViewById(R.id.app_bar).setBackgroundColor(ContextCompat.getColor(this, R.color.primary_blue));
 
         dbHelper = new DatabaseHelper(this);
         User user = sessionManager.getUser();

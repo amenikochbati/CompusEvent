@@ -50,9 +50,52 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Bienvenue sur votre espace événementiel"
+                        android:text="Choisis ton espace, puis connecte-toi"
                         android:textColor="@color/text_muted"
                         android:textSize="12sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_role_student"
+                            android:layout_width="0dp"
+                            android:layout_height="42dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="@color/action_blue"
+                            android:text="Espace Étudiant"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            app:cornerRadius="12dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_role_admin"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="0dp"
+                            android:layout_height="42dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:text="Espace Admin"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            app:cornerRadius="12dp"
+                            app:strokeColor="@color/line_strong" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_role_hint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Espace Étudiant : favoris, inscriptions et découverte des événements."
+                        android:textColor="@color/text_secondary"
+                        android:textSize="11sp" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -162,11 +205,12 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tv_demo_accounts"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:lineSpacingExtra="3dp"
-                        android:text="Admin : admin@campus.tn / admin123\nÉtudiant : etudiant@campus.tn / student123"
+                        android:text="Étudiant : etudiant@campus.tn / student123\nAdmin : admin@campus.tn / admin123"
                         android:textColor="@color/text_secondary"
                         android:textSize="12sp" />
 
