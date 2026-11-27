@@ -42,17 +42,16 @@ public final class NavigationHelper {
 
     /**
      * L'en-tête reste fixe pour garder Retour/Accueil accessibles, mais tout geste vertical
-     * commencé dessus (sauf sur un bouton) fait défiler la page, avec une inertie naturelle.
+     * commencé sur une zone non cliquable de l'en-tête fait défiler la page avec inertie.
      */
     public static void forwardScrollFromHeader(Activity activity) {
         View header = activity.findViewById(R.id.app_bar);
         View scrollTarget = activity.findViewById(R.id.scroll_target);
+        if (header == null) {
+            header = activity.findViewById(R.id.app_bar_content);
+        }
         if (header == null || scrollTarget == null) {
-            View fallback = activity.findViewById(R.id.app_bar_content);
-            if (fallback == null || scrollTarget == null) {
-                return;
-            }
-            header = fallback;
+            return;
         }
 
         final View touchHeader = header;
@@ -69,7 +68,7 @@ public final class NavigationHelper {
             }
         };
 
-        header.setOnTouchListener((v, event) -> {
+        touchHeader.setOnTouchListener((v, event) -> {
             if (isOverClickableChild(touchHeader, event.getX(), event.getY())) {
                 return false;
             }
